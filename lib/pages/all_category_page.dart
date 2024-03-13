@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
 
-// ไฟล์ all_category หมวดหมู่ทั้งหมด เปลี่ยนชื่อได้เลยๆ
-
-class all_category extends StatefulWidget {
-  const all_category({super.key});
+class allCategoryPage extends StatefulWidget {
+  allCategoryPage({super.key});
 
   @override
-  State<all_category> createState() => _all_categoryState();
+  State<allCategoryPage> createState() => _allCategoryPageState();
 }
 
-class _all_categoryState extends State<all_category> {
+class _allCategoryPageState extends State<allCategoryPage> {
+  bool _favorite_icon = false;
+  Color favorite_color = Color.fromARGB(255, 4, 81, 19);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
+            const SizedBox(height: 40),
             Container(
-              padding: const EdgeInsets.all(30),
+              padding: EdgeInsets.all(30),
               width: 400,
               height: 100,
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(10)),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Icon(Icons.lunch_dining),
@@ -33,20 +34,36 @@ class _all_categoryState extends State<all_category> {
                   SizedBox(
                     width: 150,
                   ),
-                  Icon(Icons.favorite),
+                  _favorite_icon
+                      ? Icon(
+                          Icons.favorite,
+                          color: Color.fromARGB(255, 4, 81, 19),
+                        )
+                      : Icon(
+                          Icons.favorite_border,
+                          color: Color.fromARGB(255, 57, 50, 50),
+                        ),
                 ],
               ),
             ),
-            const SizedBox(
+            SizedBox(
+              width: 200,
+            ),
+            IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(Icons.undo)),
+            SizedBox(
               height: 10,
             ),
             Container(
-              padding: const EdgeInsets.all(30),
+              padding: EdgeInsets.all(30),
               width: 400,
               height: 100,
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(10)),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Icon(Icons.person),
@@ -57,20 +74,28 @@ class _all_categoryState extends State<all_category> {
                   SizedBox(
                     width: 150,
                   ),
-                  Icon(Icons.favorite),
+                  _favorite_icon
+                      ? Icon(
+                          Icons.favorite,
+                          color: Color.fromARGB(255, 4, 81, 19),
+                        )
+                      : Icon(
+                          Icons.favorite_border,
+                          color: Color.fromARGB(255, 57, 50, 50),
+                        )
                 ],
               ),
             ),
-            const SizedBox(
+            SizedBox(
               height: 10,
             ),
             Container(
-              padding: const EdgeInsets.all(30),
+              padding: EdgeInsets.all(30),
               width: 400,
               height: 100,
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(10)),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Icon(Icons.directions_bus),
@@ -85,16 +110,16 @@ class _all_categoryState extends State<all_category> {
                 ],
               ),
             ),
-            const SizedBox(
+            SizedBox(
               height: 10,
             ),
             Container(
-              padding: const EdgeInsets.all(30),
+              padding: EdgeInsets.all(30),
               width: 400,
               height: 100,
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(10)),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Icon(Icons.health_and_safety),
@@ -110,12 +135,12 @@ class _all_categoryState extends State<all_category> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.all(30),
+              padding: EdgeInsets.all(30),
               width: 400,
               height: 100,
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(10)),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Icon(Icons.directions_bus),
@@ -130,16 +155,16 @@ class _all_categoryState extends State<all_category> {
                 ],
               ),
             ),
-            const SizedBox(
+            SizedBox(
               height: 10,
             ),
             Container(
-              padding: const EdgeInsets.all(30),
+              padding: EdgeInsets.all(30),
               width: 400,
               height: 100,
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(10)),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Icon(Icons.paid),
@@ -155,12 +180,12 @@ class _all_categoryState extends State<all_category> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.all(30),
+              padding: EdgeInsets.all(30),
               width: 400,
               height: 100,
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(10)),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Icon(Icons.more_horiz),
@@ -174,7 +199,17 @@ class _all_categoryState extends State<all_category> {
                   Icon(Icons.favorite),
                 ],
               ),
-            )
+            ),
+            GestureDetector(
+              onTap: () {
+                setState(
+                  () {
+                    _favorite_icon = !_favorite_icon;
+                    favorite_color = Color.fromARGB(255, 4, 81, 19);
+                  },
+                );
+              },
+            ),
           ],
         ),
       ),

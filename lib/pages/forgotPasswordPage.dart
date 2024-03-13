@@ -27,13 +27,17 @@ class _forgotPasswordPageState extends State<forgotPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Center(
-          child:
-              Text('Example Firebase', style: TextStyle(color: Colors.white)),
+        title: const Padding(
+          padding: EdgeInsets.fromLTRB(80, 0, 0, 0),
+          child: Text('กู้คืนบัญชี',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              )),
         ),
-        actions: const [Icon(Icons.help, color: Colors.white)],
-        backgroundColor: const Color.fromRGBO(40, 84, 48, 1),
+        backgroundColor: const Color(0xff368983),
       ),
       body: Container(
         margin: const EdgeInsets.all(20),
@@ -43,7 +47,7 @@ class _forgotPasswordPageState extends State<forgotPasswordPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                'Enter your email to get a password reset link',
+                'กรอกอีเมลล์ของคุณเพื่อรับลิงค์รีเซ็ตรหัสผ่าน',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
@@ -52,10 +56,10 @@ class _forgotPasswordPageState extends State<forgotPasswordPage> {
                 controller: emailController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Your email',
+                  labelText: 'กรอกอีเมลล์',
                 ),
                 validator: (value) {
-                  if (value!.isEmpty) return 'กรุณากรอก email';
+                  if (value!.isEmpty) return 'กรุณากรอกอีเมลล์';
                   return null;
                 },
               ),
@@ -65,9 +69,9 @@ class _forgotPasswordPageState extends State<forgotPasswordPage> {
                   passwordReset();
                 },
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromRGBO(164, 190, 123, 1)),
+                    backgroundColor: const Color(0xff368983)),
                 child: const Text(
-                  'Reset Password',
+                  'รีเซ็ตรหัสผ่าน',
                   style: TextStyle(color: Colors.white),
                 ),
               )

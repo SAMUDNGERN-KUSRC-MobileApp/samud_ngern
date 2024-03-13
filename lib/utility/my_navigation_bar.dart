@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_main/pages/incom.dart';
 import '../pages/home_page.dart';
 import '../pages/other_page.dart';
 
@@ -20,6 +21,7 @@ List<Widget> getIcon (BuildContext context, int pageIndex) {
     IconButton(
       onPressed: () {
         if (pageIndex != 0){
+          Navigator.pop(context);
           Navigator.push(context,
             MaterialPageRoute(
               builder: (context) {
@@ -33,25 +35,41 @@ List<Widget> getIcon (BuildContext context, int pageIndex) {
     ),
 
     IconButton(
-      onPressed: () {},
+      onPressed: () {
+      },
       icon: Icon(Icons.calendar_today, size: 28, color: getColor(1, pageIndex))
     ),
 
     const SizedBox(width: 60),
 
     IconButton(
-      onPressed: () {FirebaseAuth.instance.signOut();},
+      onPressed: () {
+        if (pageIndex != 2){
+          Navigator.pop(context);
+          Navigator.push(context,
+            MaterialPageRoute(
+              builder: (context) {
+                return incom();
+              }
+            )
+          );
+        }
+      },
       icon: Icon(Icons.auto_graph_rounded, size: 30, color: getColor(2, pageIndex))
     ),
 
     IconButton(
       onPressed: () {
-        // Navigator.pop(context);
-        Navigator.push(context, MaterialPageRoute(
-          builder: (context) {
-            return const OtherPage();
-          }
-        ));
+        if (pageIndex != 3){
+          Navigator.pop(context);
+          Navigator.push(context,
+            MaterialPageRoute(
+              builder: (context) {
+                return OtherPage();
+              }
+            )
+          );
+        }
       },
       icon: Icon(Icons.more_horiz_rounded, size: 32, color: getColor(3, pageIndex))
     ),
@@ -69,7 +87,7 @@ Container myNavigationBar (BuildContext context, int pageIndex) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: getIcon(context, 0)
+      children: getIcon(context, pageIndex)
     )
   );
 }

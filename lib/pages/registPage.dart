@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../utility/alert.dart';
 
 class registPage extends StatefulWidget {
   const registPage({super.key});
@@ -32,10 +33,10 @@ class _registPageState extends State<registPage> {
         );
         Navigator.pop(context);
       } else {
-        print('Password Dont\'t match');
+        showAlert('Password not match!', 'รหัสผ่านของคุณไม่ตรงกัน', context);
       }
     } on FirebaseException catch (e) {
-      print(e.message);
+        showAlert('Error', 'something went wrong!', context);
     }
     Navigator.pop(context);
   }
@@ -43,13 +44,19 @@ class _registPageState extends State<registPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Center(
-          child:
-              Text('Example Firebase', style: TextStyle(color: Colors.white)),
+        title: const Padding(
+          padding: EdgeInsets.fromLTRB(45, 0, 0, 0),
+          child: Text(
+            'สมัครบัญชีผู้ใช้งาน',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
-        actions: const [Icon(Icons.help, color: Colors.white)],
-        backgroundColor: const Color.fromRGBO(40, 84, 48, 1),
+        backgroundColor: const Color(0xff368983),
       ),
       body: Container(
         margin: const EdgeInsets.all(20),
@@ -59,7 +66,7 @@ class _registPageState extends State<registPage> {
               const SizedBox(height: 30),
               const Center(
                   child: Text(
-                'Create accout',
+                'สร้างบัญชีผู้ใช้งาน',
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               )),
               const SizedBox(height: 30),
@@ -72,10 +79,10 @@ class _registPageState extends State<registPage> {
                       autofocus: true,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Email',
+                        labelText: 'อีเมลล์',
                       ),
                       validator: (value) {
-                        if (value!.isEmpty) return 'กรุณากรอก email';
+                        if (value!.isEmpty) return 'กรุณากรอกอีเมลล์';
                         return null;
                       },
                     ),
@@ -85,7 +92,7 @@ class _registPageState extends State<registPage> {
                       obscureText: true,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Password',
+                        labelText: 'รหัสผ่าน',
                       ),
                       validator: (value) {
                         if (value!.isEmpty) return 'กรุณากรอกรหัสผ่าน';
@@ -98,7 +105,7 @@ class _registPageState extends State<registPage> {
                       obscureText: true,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Confirm Password',
+                        labelText: 'ยืนยันรหัสผ่าน',
                       ),
                       validator: (value) {
                         if (value!.isEmpty) return 'กรุณากรอกรหัสยืนยัน';
@@ -113,9 +120,9 @@ class _registPageState extends State<registPage> {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromRGBO(164, 190, 123, 1)),
+                          backgroundColor: const Color(0xff368983)),
                       child: const Text(
-                        'Sign Up',
+                        'สมัครสมาชิก',
                         style: TextStyle(color: Colors.white),
                       ),
                     ),

@@ -1,35 +1,46 @@
 import 'package:flutter/material.dart';
 import '../utility/database.dart';
 import '../utility/alert.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class addScreen extends StatefulWidget {
-  const addScreen({super.key});
+
+class updateForm extends StatefulWidget {
+  const updateForm({super.key});
 
   @override
-  State<addScreen> createState() => _addScreenState();
+  State<updateForm> createState() => _updateForm();
 }
 
-class _addScreenState extends State<addScreen> {
-  /*final TextEditingController _controller = TextEditingController(
-    text: DateTime.now().toString(),
-  );*/
+class _updateForm extends State<updateForm> {
 
-  var currentDate = DateTime.now();
-
+  CollectionReference topicCollection = database().getAllRecord();
   final TextEditingController amountController = TextEditingController();
   final TextEditingController noteController = TextEditingController();
 
-  String expenses = expensies.first;
-
-  String category = categories.first;
+  DateTime getDateTime(timestamp) {
+    return DateTime.fromMillisecondsSinceEpoch(
+        timestamp.seconds * 1000 + (timestamp.nanoseconds / 1000000).round());
+  }
+  var currentDate;
+  String expenses = '';
+  String category = '';
 
   @override
   Widget build(BuildContext context) {
+    final data = ModalRoute.of(context)!.settings.arguments as dynamic;
+    currentDate = getDateTime(data['date']);
+
+    amountController.text = data['amount'].toString();
+    noteController.text = data['note'];
+
+    expenses = expensies[data['type']];
+    category = categories[data['category']];
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xff368983),
           title: const Center(
-              child: Text('บันทึกข้อมูล',
+              child: Text('แก้ไขข้อมูล',
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold))),
         ),
@@ -181,7 +192,7 @@ class _addScreenState extends State<addScreen> {
                           child: Row(
                             children: [
                               Icon(Icons.calendar_month,size: 20,color: Colors.white),
-                              Text('  เลือกวันที่',style: TextStyle(color: Colors.white,fontSize: 18)),
+                              Text('เลือกวันที่',style: TextStyle(color: Colors.white,fontSize: 18)),
                             ],
                           ),
                         ),
@@ -220,7 +231,8 @@ class _addScreenState extends State<addScreen> {
                             if (double.parse(amountController.text) <= 0) {
                               throw const FormatException('Expected amount');
                             }
-                            database().add(
+                            database().update(
+                                data.id,
                                 double.parse(amountController.text),
                                 expensies.indexOf(expenses),
                                 categories.indexOf(category),
